@@ -6,7 +6,7 @@ backend/data/processed/
 *.csv
 *.pkl
 *.joblib
-
+*.parquet
 # ========================
 # Python
 # ========================
@@ -19,7 +19,7 @@ venv/
 *.egg-info/
 dist/
 build/
-
+downloaded_files/
 # ========================
 # Environment & Secrets
 # ========================

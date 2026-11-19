@@ -1,0 +1,45 @@
+project:
+  name: "transfer-scouting-engine"
+  target_club: "Manchester United"
+  target_league: "ENG-Premier League"
+
+data_ingestion:
+  leagues:
+    - "Big 5 European Leagues Combined"
+  seasons:
+    - "2025-2026"
+    - "2026-2027"
+  player_stat_types:
+    - "standard"
+    - "keeper"
+    - "shooting"
+    - "playing_time"
+    - "misc"
+  team_stat_types:
+    - "schedule"
+    - "keeper"
+    - "shooting"
+    - "misc"
+  team_stat_season_types:
+    - "standard"
+    - "keeper"
+    - "shooting"
+    - "playing_time"
+    - "misc"
+  paths:
+    raw_dir: "data/raw"
+    interim_dir: "data/interim"
+    processed_dir: "data/processed"
+
+preprocessing:
+  min_minutes_current_season: 450
+  min_minutes_full_season: 900
+  age_range:
+    min: 18
+    max: 29
+  contract_expiry_cutoff_months: 18
+
+manager_profiling:
+  lookback_seasons: 5
+  national_team_weight_discount: 0.30
+  time_decay_factor: 0.85
