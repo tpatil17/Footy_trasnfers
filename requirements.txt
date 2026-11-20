@@ -1,0 +1,14 @@
+# Already in .venv: pandas, numpy, pyarrow, matplotlib, seaborn, soccerdata, pyyaml, pytest, jupyter
+# Needed for the modules (not yet installed):
+scikit-learn      # clustering, PCA, regression, CV            (modules 3-6)
+scipy             # distances, stats                           (modules 2, 5)
+statsmodels       # age curves / mixed effects                 (module 6)
+shap              # explain the impact model                   (module 4)
+lightgbm          # learning-to-rank, GBMs                     (modules 4, 6)
+umap-learn        # style-space visualisation                  (module 3)
+rapidfuzz         # entity resolution                          (module 1)
+torch             # player embeddings / autoencoder (stretch)  (module 5)
+anthropic         # scouting agent                             (module 7)
+pydantic          # structured outputs                         (module 7)
+python-dotenv     # load ANTHROPIC_API_KEY from .env           (module 7)
+mplsoccer         # radar / pitch plots (stretch)              (module 9)

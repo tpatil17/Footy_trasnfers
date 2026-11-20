@@ -43,3 +43,27 @@ manager_profiling:
   lookback_seasons: 5
   national_team_weight_discount: 0.30
   time_decay_factor: 0.85
+
+team_profile:
+  k_range: [3, 8]
+  n_peer_teams: 8
+
+needs:
+  # relative weight of each lens when combining into a single severity score (tune these!)
+  lens_weights:
+    benchmark_gap: 0.4
+    squad_structure: 0.3
+    impact_model: 0.3
+  top_n_needs: 5
+
+scoring:
+  weights:
+    quality: 0.35
+    system_fit: 0.30
+    upgrade_over_incumbent: 0.20
+    age_trajectory: 0.15
+  targets_per_need: 5
+
+agent:
+  model: "claude-sonnet-5-5"   # any current Claude model id; keep it configurable
+  max_turns: 12
