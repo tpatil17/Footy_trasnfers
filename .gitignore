@@ -26,3 +26,4 @@ downloaded_files/
 .env
 .env.*
 !.env.example        # keep the example template, ignore real ones
+.DS_Store
