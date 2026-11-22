@@ -15,7 +15,8 @@ HELPFUL soccerdata READERS (installed, v2026.43)
     Understat  read_player_season_stats / read_team_match_stats / read_shot_events -> xG, xA, npxG, PPDA
     ESPN       read_lineup                                                         -> starting XI, formation
     SoFIFA     read_player_ratings                                                 -> overall / potential
-    ClubElo    read_by_date                                                        -> team strength
+    ClubElo    read_by_date  (BROKEN since Sept 2026: API behind auth, soccerdata issue #977)
+    Full ratings of every free source, what worked and what did not: docs/DATASETS.md
     Not available in soccerdata: market value, contract expiry (Transfermarkt). Check the site's terms
     before scraping, or find another dataset.
 

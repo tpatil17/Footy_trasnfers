@@ -24,7 +24,7 @@ Read these before writing any modelling code; they change the plan.
 
 | # | Module (`src/scouting/...`) | You build | ML / AI skills reinforced |
 |---|---|---|---|
-| 1 | `data/clean.py`, `data/sources.py`, `data/identity.py` | one clean player-season table; extra sources (Understat xG/PPDA, ESPN lineups, SoFIFA, ClubElo, market values); cross-source name matching | data quality, joins, fuzzy matching / entity resolution |
+| 1 | `data/clean.py`, `data/sources.py`, `data/identity.py` | one clean player-season table; extra sources (Understat xG/PPDA, ESPN lineups, SoFIFA, odds-based team strength, market values; see DATASETS.md); cross-source name matching | data quality, joins, fuzzy matching / entity resolution |
 | 2 | `features/engineering.py` | per-90s, shrinkage, within-position percentiles, season blending | empirical Bayes, small-sample noise, normalisation, leakage awareness |
 | 3 | `team_profile/style.py`, `manager.py` | style vector per team; clusters; United's peers; manager fingerprint | PCA, KMeans vs GMM, silhouette/BIC, UMAP, cluster stability |
 | 4 | `needs/analysis.py` | ranked positional needs with evidence | regularised regression on small n, grouped CV, SHAP, bootstrap CIs |
@@ -48,7 +48,7 @@ Read these before writing any modelling code; they change the plan.
 
 ## Open decisions for you
 
-- **Which extra data sources?** Check coverage for 2025-26/2026-27 before committing (Understat is the highest-value first step).
+- **Which extra data sources?** See [DATASETS.md](DATASETS.md) for the rated list and suggested fetch order. Check coverage for 2025-26/2026-27 before committing.
 - **Market values / contracts:** soccerdata does not cover these (Transfermarkt). Read the site's terms before scraping, or find a licensed dataset.
 - **Past windows for backtesting:** you currently have only two seasons; `manager_profiling.lookback_seasons: 5` and the learned ranker need more history.
 - **Budget realism:** do you want fee/wage constraints in the score, or pure footballing fit first? (Suggest the latter.)
