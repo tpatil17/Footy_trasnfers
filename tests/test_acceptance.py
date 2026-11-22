@@ -93,3 +93,58 @@ def test_recommendations_have_required_fields():
     recs = top_targets([], pd.DataFrame())
     for r in recs:
         assert r.player and r.role and r.why_position_needed
+
+
+# ---- More acceptance tests referenced from the module docstrings ---------------------------------
+@TODO
+def test_merge_player_tables():
+    from scouting.config import read_raw
+    from scouting.data.clean import fix_missing_league, merge_player_tables
+
+    sched = read_raw("schedules")
+    tables = {n: fix_missing_league(read_raw(f"player_{n}"), sched)
+              for n in ["standard", "shooting", "misc", "playing_time"]}
+    out = merge_player_tables(tables)
+    assert len(out) == 5158
+    assert not out.duplicated(["league", "season", "team", "player", "born"]).any()
+    assert not [c for c in out.columns if c.endswith(("_x", "_y")) or "%" in c or "/" in c]
+
+
+@TODO
+def test_add_per90():
+    from scouting.features.engineering import add_per90
+
+    toy = pd.DataFrame({"minutes": [900, 90, 0], "goals": [9, 1, 0]})
+    out = add_per90(toy, ["goals"])
+    assert out["goals_p90"].iloc[:2].tolist() == [0.9, 1.0]
+    assert np.isnan(out["goals_p90"].iloc[2])
+
+
+@TODO
+def test_blend_seasons_weights_minutes_and_recency():
+    from scouting.features.engineering import blend_seasons
+
+    toy = pd.DataFrame({
+        "player": ["A", "A"], "born": [2000, 2000], "season": ["2526", "2627"],
+        "minutes": [3000, 1000], "goals_p90": [1.0, 2.0],
+    })
+    out = blend_seasons(toy, decay=0.85)
+    assert out["goals_p90"].iloc[0] == pytest.approx((3000 * 0.85 * 1.0 + 1000 * 2.0) / (3000 * 0.85 + 1000))
+
+
+@TODO
+def test_normalise_name():
+    from scouting.data.identity import normalise_name
+
+    assert normalise_name("  Christian  Nørgaard ") == "christian norgaard"
+    assert normalise_name("N'Golo Kanté") == "ngolo kante"
+    assert normalise_name("Kylian Mbappé-Lottin") == "kylian mbappe lottin"
+
+
+@TODO
+def test_grounding_check():
+    from scouting.evaluation.backtest import grounding_check
+
+    assert grounding_check("Cunha has 0.42 xG per 90.", [{"xg_p90": 0.42}]) == 1.0
+    assert grounding_check("Cunha has 0.90 xG per 90.", [{"xg_p90": 0.42}]) == 0.0
+    assert grounding_check("No numbers here.", []) == 1.0
